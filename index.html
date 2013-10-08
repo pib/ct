@@ -11,7 +11,7 @@
             "',(typeof _ctcct)[0]=='f'?_ctcct:function(){" +
               "var d=document,s=d.createElement('script');" +
               "s.type='text/javascript';" +
-              "s.src='http://p1b.us/ct/ct.js?'+(Math.random());" +
+              "s.src='" + window.location + "/ct.js?'+(Math.random());" +
               "d.body.appendChild(s)}();");
         }
         work_place.onkeyup = work_place.onblue = regen;
