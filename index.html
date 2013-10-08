@@ -1,16 +1,47 @@
 <html>
-<body>
-Bookmark the following link: <a href="javascript:_ctf='Austin, TX',(typeof _ctcct)[0]=='f'?_ctcct:function(){var d=document,s=d.createElement('script');s.type='text/javascript';s.src='http://p1b.us/ct/ct.js?'+(Math.random());d.body.appendChild(s)}();">Find distance</a>
-
-<p>
-  Then edit the bookmark and replace the 'Austin, TX' bit with the
-  address of where you work.
-</p>
-<p>
-  Now going to a Trulia/Zillow/Realtor.com(any site which uses
-  schema.org PostalAddress schema) real estate page and clicking on
-  that bookmarklet will tell you how long of a commute you would have
-  between the property you are viewing and your work address.
-</p>
-</body>
+  <head>
+    <title>Real-estate commute-time checker bookmarklet</title>
+    <script type="text/javascript">
+      window.onload = function() {
+        var work_place = document.getElementById('work_place'),
+            bookmarklet = document.getElementById('bookmarklet');
+        function regen() {
+          bookmarklet.href = (
+            "javascript:_ctf='" + work_place.value +
+            "',(typeof _ctcct)[0]=='f'?_ctcct:function(){" +
+              "var d=document,s=d.createElement('script');" +
+              "s.type='text/javascript';" +
+              "s.src='http://p1b.us/ct/ct.js?'+(Math.random());" +
+              "d.body.appendChild(s)}();");
+        }
+        work_place.onkeyup = work_place.onblue = regen;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Real-estate commute-time checker bookmarklet</h1>
+    <ol>
+      <li>
+        Enter your <label for="work_place">Work Address:</label>
+        <input id="work_place" name="work_place" type="text" value="Austin, TX"/>
+      </li>
+      <li>
+        Bookmark the following link (which will be filled in with the address you provided):
+        <a id="bookmarklet" href="javascript:_ctf='Austin, TX',(typeof _ctcct)[0]=='f'?_ctcct:function(){var d=document,s=d.createElement('script');s.type='text/javascript';s.src='http://p1b.us/ct/ct.js?'+(Math.random());d.body.appendChild(s)}();">Find distance</a>
+      </li>
+      <li>
+        Go to a Trulia/Zillow/Realtor.com/Redfin (or any site which
+        uses schema.org PostalAddress schema) listing page.
+      </li>
+      <li>
+        Click on that bookmarklet (either on your bookmark toolbar or
+        in your bookmark menu depending on your browser setup).
+      </li>
+      <li>
+        A message will pop up telling you how long of a commute you
+        would have between the property you are viewing and the work
+        address you entered above.
+      </li>
+    </ol>
+  </body>
 </html
