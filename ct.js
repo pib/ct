@@ -16,6 +16,11 @@ function _ctcct() {
     return context.querySelector(selector);
   }
   function txt(elem) { return elem.innerText || elem.textContent; }
+  if (typeof String.prototype.startsWith != 'function') {
+    String.prototype.startsWith = function (str){
+      return this.slice(0, str.length) == str;
+    };
+  }
 
   function infobox(msg) {
     alert(msg);
@@ -25,13 +30,17 @@ function _ctcct() {
   }
 
   var addr_sel = '[itemtype="http://schema.org/PostalAddress"]',
-      address = q(addr_sel);
+      address = q(addr_sel),
+      root_url = window.location.origin;
   /* If none is in the main doc, check iframes if we can */
   if (!address) {
-    var iframes = document.getElementsByTagName('iframe');
+    var iframe=null, iframes = document.getElementsByTagName('iframe');
     for (var i=0; i< iframes.length; i++) {
-      address = q(addr_sel, iframe_doc(iframes[i]));
-      if (address) break;
+      iframe = iframes[i];
+      if (iframe.src.startsWith('javascript:') || iframe.src.startsWith(root_url)) {
+        address = q(addr_sel, iframe_doc(iframe));
+        if (address) break;
+      }
     }
   }
   if (!address) {
